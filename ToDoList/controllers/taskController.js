@@ -1,3 +1,4 @@
+
 const pg = require('pg');
 
 
@@ -12,7 +13,7 @@ exports.task_list = function(req, res, next) {
     const query = {
     // give the query a unique name
     name: 'fetch-all-task',
-    text: 'SELECT * FROM task',
+    text: 'SELECT * FROM platydentite'
     };
 
     db.query(query, function(err, result){
@@ -21,7 +22,7 @@ exports.task_list = function(req, res, next) {
             res.send('ERROR');
 
         } else {
-            res.render('task', { listeTasks : result });
+            res.render('task', { platydentite : result.rows });
 
         }
     });
@@ -38,7 +39,7 @@ exports.task_detail = function(req, res, next) {
     const query = {
     // give the query a unique name
     name: 'fetch-task',
-    text: 'SELECT * FROM task WHERE id = $1',
+    text: 'SELECT * FROM platydentite WHERE id = $1',
     values: [req.params.id]
     };
 
@@ -48,8 +49,8 @@ exports.task_detail = function(req, res, next) {
             res.send('ERROR');
 
         } else {
-            console.log(result.rows[0]['libelle']);
-            res.send('Task detail: ' + req.params.id + ' Libelle : '+ result.rows[0]['libelle']);
+            console.log(result.rows[0]['nom']);
+            res.send("L'ornithorynque numero " + req.params.id + " s'appelle : "+ result.rows[0]['nom']);
 
         }
     });
